@@ -223,7 +223,9 @@ function! mdip#MarkdownClipboardImage()
     " change temp-file-name and image-name
     let g:mdip_tmpname = s:InputName()
     if empty(g:mdip_tmpname)
-        let g:mdip_tmpname = g:mdip_imgname . '/' . s:RandomName()
+        let g:mdip_tmpname = s:RandomName()
+    else
+        let g:mdip_tmpname = g:mdip_tmpname . '-' . s:RandomName()
     endif
 
     let tmpfile = s:SaveFileTMP(workdir, g:mdip_tmpname)
