@@ -179,11 +179,11 @@ function! s:InputName()
 endfunction
 
 function! g:MarkdownPasteImage(relpath)
-        execute "normal! i![" . g:mdip_tmpname[0:0]
-        let ipos = getcurpos()
-        execute "normal! a" . g:mdip_tmpname[1:] . "](" . a:relpath . ")"
-        call setpos('.', ipos)
-        execute "normal! vt]\<C-g>"
+    execute "normal! i![" . g:mdip_tmpname[0:0]
+    let ipos = getcurpos()
+    execute "normal! a" . g:mdip_tmpname[1:] . "](" . a:relpath . ")"
+    call setpos('.', ipos)
+    execute "normal! vt]\<C-g>"
 endfunction
 
 function! g:LatexPasteImage(relpath)
@@ -232,7 +232,6 @@ function! mdip#MarkdownClipboardImage()
     if tmpfile == 1
         return
     else
-        " let relpath = s:SaveNewFile(g:mdip_final_imgdir, tmpfile)
         let extension = split(tmpfile, '\.')[-1]
         let relpath = g:mdip_final_imgdir_intext . '/' . g:mdip_tmpname . '.' . extension
         if call(get(g:, 'PasteImageFunction'), [relpath])
