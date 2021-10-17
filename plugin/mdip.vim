@@ -125,7 +125,7 @@ endfunction
 
 function! s:SaveFileTMP(imgdir, tmpname)
     if s:os == "Linux"
-        " Linux could also mean Windowns Subsystem for Linux
+        " Linux could also mean Windows Subsystem for Linux
         if s:IsWSL()
             return s:SaveFileTMPWSL(a:imgdir, a:tmpname)
         endif
@@ -160,15 +160,7 @@ function! s:SaveNewFile(imgdir, tmpfile)
 endfunction
 
 function! s:RandomName()
-    " help feature-list
-    if has('win16') || has('win32') || has('win64') || has('win95')
-        let l:new_random = strftime("%Y-%m-%d-%H-%M-%S")
-        " creates a file like this: `2019-11-12-10-27-10.png`
-        " the filesystem on Windows does not allow : character.
-    else
-        let l:new_random = strftime("%Y-%m-%d-%H-%M-%S")
-    endif
-    return l:new_random
+    return strftime("%Y-%m-%d-%H-%M-%S")
 endfunction
 
 function! s:InputName()
