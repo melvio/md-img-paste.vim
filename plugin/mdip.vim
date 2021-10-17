@@ -171,9 +171,9 @@ function! s:InputName()
 endfunction
 
 function! g:MarkdownPasteImage(relpath)
-    execute "normal! i![" . g:mdip_tmpname[0:0]
+    execute "normal! i!["
     let ipos = getcurpos()
-    execute "normal! a" . g:mdip_tmpname[1:] . "](" . a:relpath . ")"
+    execute "normal! a" . g:mdip_intext_name . "](" . a:relpath . ")"
     call setpos('.', ipos)
     execute "normal! vt]\<C-g>"
 endfunction
@@ -206,17 +206,17 @@ function! mdip#MarkdownClipboardImage()
         let g:mdip_final_imgdir = g:mdip_imgdir
     endif
 
-    " allow a different intext reference for relative links
-    if !exists('g:mdip_imgdir_intext')
-        let g:mdip_final_imgdir_intext = g:mdip_final_imgdir
-    endif
-
     let workdir = s:SafeMakeDir(g:mdip_final_imgdir)
     " change temp-file-name and image-name
     let g:mdip_tmpname = s:InputName()
     if empty(g:mdip_tmpname)
         let g:mdip_tmpname = s:RandomName()
+        let g:mdip_intext_name = g:mdip_tmpname
+        let g:mdip_final_imgdir_intext = g:mdip_final_imgdir
     else
+        " we don't want the RandomName inside the text reference
+        let g:mdip_final_imgdir_intext = g:mdip_final_imgdir
+        let g:mdip_intext_name = g:mdip_tmpname
         let g:mdip_tmpname = g:mdip_tmpname . '-' . s:RandomName()
     endif
 
