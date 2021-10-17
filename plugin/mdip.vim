@@ -171,7 +171,7 @@ function! s:InputName()
 endfunction
 
 function! g:MarkdownPasteImage(relpath)
-    execute "normal! i!["
+    execute "normal! i !["
     let ipos = getcurpos()
     execute "normal! a" . g:mdip_intext_name . "](" . a:relpath . ")"
     call setpos('.', ipos)
